@@ -7,7 +7,7 @@
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card shadow-lg rounded-3">
+      <div class="card shadow-lg  bg-tech-image text-dark rounded-3">
         <div class="card-header text-center bg-info text-white">
           <h4 class="mb-0">
             <i class="bi bi-person-plus-fill me-2"></i> Create Your Account
@@ -17,14 +17,14 @@
 
           {% if messages %}
             {% for message in messages %}
-              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              <div class="alert alert-{{ message.tags }} text-danger alert-dismissible fade show" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
               </div>
             {% endfor %}
           {% endif %}
 
-          <form method="post" novalidate>
+          <form method="post" id="registerForm" novalidate>
             {% csrf_token %}
 
             <!-- Email -->
@@ -64,7 +64,7 @@
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg">
+              <button type="submit" id = "registerBtn" class="btn btn-primary btn-lg">
                 <i class="bi bi-person-plus-fill me-2"></i> Register
               </button>
             </div>
@@ -81,4 +81,12 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.getElementById("registerForm").addEventListener("submit", function() {
+    const btn = document.getElementById("registerBtn");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Please wait...';
+  });
+</script>
 {% endblock %}

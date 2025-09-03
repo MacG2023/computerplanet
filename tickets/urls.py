@@ -1,14 +1,27 @@
 from django.urls import path
-from .views import (
-    TicketListView, MyTicketsView, TicketDetailView,
-    TicketCreateView, TicketUpdateView, TicketDeleteView
-)
+from . import views
+
+app_name = "tickets"
 
 urlpatterns = [
-    path('', TicketListView.as_view(), name='tickets'),             # admin/support view
-    path('my/', MyTicketsView.as_view(), name='my_tickets'),        # logged-in user's tickets
-    path('create/', TicketCreateView.as_view(), name='ticket_create'),
-    path('<int:pk>/', TicketDetailView.as_view(), name='ticket_detail'),
-    path('<int:pk>/update/', TicketUpdateView.as_view(), name='ticket_update'),
-    path('<int:pk>/delete/', TicketDeleteView.as_view(), name='ticket_delete'),
+    path("create/", views.create_ticket, name="tickets"),
+    
+
+     path('details/<int:pk>/', views.ticket_detail, name='details'),
+    path('update/<int:pk>/', views.ticket_update, name='update_ticket'),
+    path('delete/<int:pk>/', views.ticket_delete, name='delete'),
+  
+    path("my/", views.my_tickets, name="tickets_list"),
+    path("my/", views.my_tickets, name="my_tickets"),
+
+    path("tickets/<int:pk>/<uuid:access_key>/", views.ticket_detail_with_key, name="details_with_key"),
+
+    
+
+   
+    path("create/", views.create_ticket, name="create_ticket"),
+    path("admin/list/", views.admin_ticket_list, name="admin_ticket_list"),
+    # path("admin/update/<int:ticket_id>/", views.update_ticket, name="update_ticket"),
+    path('tickets/export-csv/', views.export_tickets_csv, name='export_csv'),
+   
 ]

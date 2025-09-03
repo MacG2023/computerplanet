@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Delete Ticket | Computer Planet{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-3">Delete Ticket: {{ ticket.ticket_no }}</h3>
+    <div class="alert alert-danger">
+        Are you sure you want to delete this ticket? This action cannot be undone.
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'tickets:details' ticket.pk %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

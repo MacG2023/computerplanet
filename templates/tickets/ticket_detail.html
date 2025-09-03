@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Ticket Details | Computer Planet{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="mb-3">Ticket Details: {{ ticket.ticket_no }}</h3>
+    <div class="card shadow-sm p-3">
+        <p><strong>Submitted By:</strong> {{ ticket.reported_by }} ({{ ticket.customer.email }})</p>
+        <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+
+        <p><strong>Description:</strong> {{ ticket.description }}</p>
+
+        <p><strong>Admin Notes:</strong> {{ ticket.admin_notes }}</p>
+        <p><strong>Status:</strong> 
+            <span class="badge 
+            {% if ticket.get_status_display == 'Open' %}bg-success
+            {% elif ticket.get_status_display == 'In Progress' %}bg-warning text-dark
+            {% elif ticket.get_status_display == 'Resolved' %}bg-info text-dark
+            {% elif ticket.get_status_display == 'Closed' %}bg-secondary
+            {% else %}bg-light text-dark{% endif %}">
+              {{ ticket.get_status_display }}
+            </span>
+        </p>
+        <p><strong>Attachment:</strong>
+            {% if ticket.attachment %}
+                <a href="{{ ticket.attachment.url }}" target="_blank">View File</a>
+            {% else %}
+                <span>No attachment</span>
+            {% endif %}
+        </p>
+        <p><strong>Created At:</strong> {{ ticket.created_at|date:"Y-m-d H:i" }}</p>
+    </div>
+    <a href="{% url 'tickets:my_tickets' %}" class="btn btn-secondary mt-3">Back to Tickets</a>
+</div>
+{% endblock %}

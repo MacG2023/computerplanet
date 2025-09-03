@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}My Tickets | Computer Planet{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h3 class="text-primary mb-3">My Tickets</h3>
+
+  {% if tickets %}
+  <div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'tickets:export_csv' %}" class="btn btn-outline-primary btn-sm">
+      <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export to CSV
+    </a>
+  </div>
+
+  <!-- Desktop Table (visible on md and above) -->
+  <div class="card shadow-sm d-none d-md-block">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0 align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Ticket No</th>
+              <th scope="col">Submitted By</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Status</th>
+              <th scope="col">Attachment</th>
+              <th scope="col">Created</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr>
+              <td>{{ ticket.ticket_no }}</td>
+              <td>{{ ticket.reported_by }} ({{ ticket.customer.email }})</td>
+              <td class="text-truncate" style="max-width: 150px;">{{ ticket.subject }}</td>
+              <td>
+                {% if ticket.get_status_display == "Open" %}
+                  <span class="badge bg-success">{{ ticket.get_status_display }}</span>
+                {% elif ticket.get_status_display == "In Progress" %}
+                  <span class="badge bg-warning text-dark">{{ ticket.get_status_display }}</span>
+                {% elif ticket.get_status_display == "Resolved" %}
+                  <span class="badge bg-info text-dark">{{ ticket.get_status_display }}</span>
+                {% elif ticket.get_status_display == "Closed" %}
+                  <span class="badge bg-secondary">{{ ticket.get_status_display }}</span>
+                {% else %}
+                  <span class="badge bg-light text-dark">{{ ticket.status }}</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if ticket.attachment %}
+                  <a href="{{ ticket.attachment.url }}" target="_blank" class="text-decoration-none">View File</a>
+                {% else %}
+                  <span class="text-muted">No File</span>
+                {% endif %}
+              </td>
+              <td>{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+              <td>
+                <a href="{% url 'tickets:details' ticket.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                {% if request.user.is_superuser %}
+                  <a href="{% url 'tickets:update_ticket' ticket.id %}" class="btn btn-sm btn-outline-warning">Update</a>
+                  <a href="{% url 'tickets:delete' ticket.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile List (visible below md) -->
+  <div class="d-block d-md-none">
+    {% for ticket in tickets %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Ticket No: {{ ticket.ticket_no }}</h5>
+        <p><strong>Submitted By:</strong> {{ ticket.reported_by }} ({{ ticket.customer.email }})</p>
+        <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+        <p><strong>Status:</strong>
+          {% if ticket.status == "Open" %}
+            <span class="badge bg-success">{{ ticket.status }}</span>
+          {% elif ticket.status == "In Progress" %}
+            <span class="badge bg-warning text-dark">{{ ticket.status }}</span>
+          {% elif ticket.status == "Resolved" %}
+            <span class="badge bg-info text-dark">{{ ticket.status }}</span>
+          {% elif ticket.status == "Closed" %}
+            <span class="badge bg-secondary">{{ ticket.status }}</span>
+          {% else %}
+            <span class="badge bg-light text-dark">{{ ticket.status }}</span>
+          {% endif %}
+        </p>
+        <p><strong>Attachment:</strong>
+          {% if ticket.attachment %}
+            <a href="{{ ticket.attachment.url }}" target="_blank" class="text-decoration-none">View File</a>
+          {% else %}
+            <span class="text-muted">No File</span>
+          {% endif %}
+        </p>
+        <p><strong>Created:</strong> {{ ticket.created_at|date:"Y-m-d H:i" }}</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'tickets:details' ticket.id %}" class="btn btn-sm btn-outline-primary flex-grow-1">View</a>
+          {% if request.user.is_superuser %}
+            <a href="{% url 'tickets:update_ticket' ticket.id %}" class="btn btn-sm btn-outline-warning flex-grow-1">Update</a>
+            <a href="{% url 'tickets:delete' ticket.id %}" class="btn btn-sm btn-outline-danger flex-grow-1">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class="alert alert-info text-center mt-4">
+    You have no tickets logged yet.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
