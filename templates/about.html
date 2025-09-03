@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us | Computer Planet{% endblock %}
+
+{% block extra_head %}
+<style>
+  .preview-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Shows about 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+  }
+  .preview-text::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 3em;
+    height: 1.5em;
+    background: linear-gradient(to right, transparent, white 90%);
+  }
+  .collapse-text {
+    transition: max-height 0.5s ease;
+  }
+  .collapse-text.d-none {
+    max-height: 0;
+    overflow: hidden;
+  }
+  .collapse-text.show {
+    max-height: 500px; /* Enough height for full content */
+    overflow: visible;
+  }
+</style>
+
+{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<div class="p-5 mb-4 rounded-3 shadow-sm text-center bg-light bg-opacity-50"
+  style="background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+
+  <div
+    style="background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+    <div class="container py-5 bg-white bg-opacity-75 rounded-3">
+      <h1
+        class="display-5 fw-bold text-primary d-flex flex-column flex-sm-row align-items-center justify-content-center">
+        <img src="{% static 'images/logos/logo.png' %}"
+          alt="Computer Planet Logo"
+          class="mb-3 mb-sm-0"
+          style="height:60px; width:auto; max-width:100%;">
+        <span class="ms-sm-3">About Us</span>
+      </h1>
+      <div
+        style="max-width: 900px; font-family: 'Courier New', Courier, monospace; color: #0d6efd;"
+        class="mx-auto">
+
+        <div class="d-block d-sm-none position-relative">
+          <p id="clipText" class="preview-text mb-1">
+            Computer Planet stands at the forefront of IT maintenance and
+            support, delivering cutting-edge, scalable solutions engineered to
+            maximize system reliability and operational efficiency.
+          </p>
+
+          <div id="fullText" class="collapse-text mt-2 d-none">
+            Leveraging a rich legacy of technical excellence, we empower
+            businesses to optimize their hardware ecosystems and seamlessly
+            automate workflows.
+            Our relentless drive for innovation and superior customer-centric
+            service has cemented our reputation as industry pioneers,
+            consistently raising the bar for technological excellence.
+          </div>
+
+          <a href="javascript:void(0);" id="toggleBtn"
+            class="btn btn-link p-0 fs-6" style="cursor:pointer;">
+            View More
+          </a>
+
+        </div>
+
+        <p class="d-none d-sm-block fw-bold fs-5">
+          <strong>
+            Computer Planet stands at the forefront of IT maintenance and
+            support, delivering cutting-edge, scalable solutions engineered to
+            maximize system reliability and operational efficiency.
+            Leveraging a rich legacy of technical excellence, we empower
+            businesses to optimize their hardware ecosystems and seamlessly
+            automate workflows.
+            Our relentless drive for innovation and superior customer-centric
+            service has cemented our reputation as industry pioneers,
+            consistently raising the bar for technological excellence.
+          </strong>
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <!-- 🔹 Mission Statement -->
+  <div class="bg-white mt-3 bg-opacity-75 py-3 rounded-3 shadow-sm">
+    <div class="container text-center">
+      <h2 class="mb-3"><i class="bi bi-bullseye fs-3 me-2 text-success"></i>Our
+        Mission</h2>
+      <p class="fs-5">
+        M/s Computer Planet strives to provide its customers with unparalleled
+        service while offering the most cost-effective solutions.
+        Built with customer service in mind from the ground up.
+      </p>
+    </div>
+  </div>
+
+  <!-- 🔹 Company Profile -->
+  <div class="bg-white mt-3 bg-opacity-75 py-3 rounded-3 shadow-sm">
+    <div class="container my-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <h2>
+            <i class="bi bi-building fs-3 me-2 text-primary"></i>About Computer
+            Planet
+          </h2>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="bi bi-briefcase-fill text-primary me-2"></i>
+              <strong>Company Name:</strong> M/S Computer Planet
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-award-fill text-success me-2"></i>
+              <strong>Registration:</strong> Registered Trader under MSME, Govt.
+              of India
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-receipt-cutoff text-warning me-2"></i>
+              <strong>GSTIN:</strong> 18ASTPR6755J1ZO
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-file-earmark-check-fill text-info me-2"></i>
+              <strong>Municipal Trade Licence Holder</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h2>
+            <i class="bi bi-building fs-3 me-2 text-primary"></i>Contact
+            Information
+          </h2>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+              <strong>Address:</strong> West Kachudharam, Chincoorie, Silchar,
+              Cachar, Assam, 788007
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-telephone-fill text-success me-2"></i>
+              <strong>Phone:</strong> +91-8638083712
+            </li>
+            <li>
+              <i class="bi bi-envelope-fill text-secondary me-2"></i>
+              <strong>Email:</strong> <a
+                href="mailto:computerplanetpkd@gmail.com">computerplanetpkd@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Services -->
+  <div class="bg-white mt-3 bg-opacity-75 py-1 rounded-3 shadow-sm">
+    <div class="container my-5">
+      <h2 class="text-center mb-4"><i
+          class="bi bi-gear-wide-connected fs-3 me-2 text-warning"></i>Our
+        Services</h2>
+      <div class="row g-4 text-center">
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm p-3">
+            <i class="bi bi-hdd-network fs-1 text-primary"></i>
+            <h5 class="mt-3">Hardware Maintenance</h5>
+            <p>Comprehensive hardware maintenance to extend system lifespan and
+              minimize downtime.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm p-3">
+            <i class="bi bi-code-slash fs-1 text-success"></i>
+            <h5 class="mt-3">Software Updates</h5>
+            <p>Proactive software updates that keep your business running
+              smoothly.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm p-3">
+            <i class="bi bi-headset fs-1 text-info"></i>
+            <h5 class="mt-3">Technical Support</h5>
+            <p>Dedicated support team available for all your technical
+              needs.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm p-3">
+            <i class="bi bi-lightning fs-1 text-warning"></i>
+            <h5 class="mt-3">Emergency Response</h5>
+            <p>Priority emergency response to handle critical system issues
+              quickly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Key Benefits -->
+  <div class="bg-white mt-3 bg-opacity-75 py-5 rounded-3 shadow-sm">
+    <div class="container">
+      <h2 class="text-center mb-4"><i
+          class="bi bi-award fs-3 me-2 text-info"></i>Key Benefits</h2>
+      <div class="row g-4 text-center">
+        <div class="col-md-3"><h5>💰 Cost Savings</h5><p>Prevent downtime,
+            extend hardware lifespan, save money.</p></div>
+        <div class="col-md-3"><h5>⚡ Performance</h5><p>Peak performance with
+            regular maintenance & updates.</p></div>
+        <div class="col-md-3"><h5>🤝 Reliable Support</h5><p>Dedicated team
+            ensures fast resolution with minimal disruption.</p></div>
+        <div class="col-md-3"><h5>🛡 Peace of Mind</h5><p>Focus on business
+            while we safeguard your IT infrastructure.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Clients -->
+  <div class="bg-white mt-3 bg-opacity-75 py-3 rounded-3 shadow-sm">
+    <div class="container my-5">
+      <h2 class="text-center mb-4"><i
+          class="bi bi-people fs-3 me-2 text-secondary"></i>Our Clients</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">📮 Indian Post, Cachar Division & under Post
+          offices</li>
+        <li class="list-group-item">🏦 Assam Gramin Bikash Bank, Silchar
+          Regional Office & branches</li>
+        <li class="list-group-item">🏦 Punjab National Bank, Silchar Circle
+          Office & branches</li>
+        <li class="list-group-item">🏢 Other Govt. & Private Entities in Barak
+          Valley</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 🔹 Conclusion -->
+  <div class="bg-white mt-3 bg-opacity-75 py-3 rounded-3 shadow-sm">
+    <div class="container my-5 text-center">
+      <h2><i
+          class="bi bi-check-circle fs-3 me-2 text-success"></i>Conclusion</h2>
+      <p class="fs-5">
+        At Computer Planet, we are dedicated to providing innovative solutions
+        that enhance system performance and reliability.
+        With our unparalleled expertise and commitment to excellence, we are
+        your trusted IT maintenance and support partner.
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggleBtn');
+    const fullText = document.getElementById('fullText');
+
+    toggleBtn.addEventListener('click', function() {
+      if (fullText.classList.contains('d-none')) {
+        fullText.classList.remove('d-none');
+        fullText.classList.add('show');
+        toggleBtn.textContent = 'View Less';
+      } else {
+        fullText.classList.add('d-none');
+        fullText.classList.remove('show');
+        toggleBtn.textContent = 'View More';
+      }
+    });
+  });
+</script>
+  {% endblock %}

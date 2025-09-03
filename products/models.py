@@ -6,6 +6,7 @@ class Product(models.Model):
         ('service', 'Service'),
         ('hardware', 'Hardware'),
         ('software', 'Software'),
+        ('networking', 'Networking'),
     ]
 
     name = models.CharField(max_length=200)

@@ -1,0 +1,17 @@
+/* You can add your custom CSS here */
+body {
+    background-color: #f8f9fa;
+}
+.card {
+    border-radius: 15px;
+}
+.form-control {
+    border-radius: 10px;
+}
+.btn {
+    border-radius: 10px;
+}
+.container-full {
+    max-width: none;
+    padding: 0;
+}

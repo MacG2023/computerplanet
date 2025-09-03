@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'accounts',
     'products',
     'tickets'
+   
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'computerplanet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,7 +121,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_URL = '/static/'
+
+# During development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Production email configuration for Outlook
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'autotask.ai.solutions@gmail.com'
+EMAIL_HOST_PASSWORD = 'zfko abpi wuug ptxr'  # Replace with your real app password
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'autotask.ai.solutions@gmail.com'
+SERVER_EMAIL = 'autotask.ai.solutions@gmail.com'

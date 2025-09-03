@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Products | Computer Planet{% endblock %}
+
+{% block head_extra %}
+
+<style>
+  #product-grid h4 i, .header-text{
+    color: #0d6efd;
+    font-weight: bold;
+  }
+  .preview-text {
+    max-height: 1.5em; /* approx one line height */
+    overflow: hidden;
+    position: relative;
+  }
+
+  .preview-text::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2em;
+    height: 100%;
+    background: linear-gradient(to right, transparent, white 90%);
+  }
+
+  .collapse-text {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .collapse-text.active {
+    max-height: 200px; /* enough to show full content */
+  }
+
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container mt-4 rounded-3 p-3 "
+  style="background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+
+
+  <div class="p-5 mb-4   rounded-3 shadow-sm text-center bg-light bg-opacity-50"
+    style="  background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+    <div class="container py-5 bg-white bg-opacity-75 rounded-3">
+      <h1
+        class="display-5 fw-bold text-primary d-flex flex-column flex-sm-row align-items-center justify-content-center">
+        <img src="{% static 'images/logos/logo.png' %}"
+          alt="Computer Planet Logo"
+          class="mb-3 mb-sm-0"
+          style="height:60px; width:auto; max-width:100%;">
+        <span class="ms-sm-3">Our Products & Services</span>
+      </h1>
+      <div
+        style="max-width: 900px; font-family: 'Courier New', Courier, monospace; color: #0d6efd;"
+        class="mx-auto">
+
+        <!-- Mobile only -->
+        <div class="d-block d-sm-none position-relative">
+          <p id="clipText" class="preview-text mb-1">
+            Our solutions are designed with your needs in mind — cost-effective,
+            scalable, and backed by expert support to ensure your technology
+            keeps pace with your ambitions.
+          </p>
+
+          <div id="fullText" class="collapse-text mt-2 d-none">
+            Experience unparalleled service crafted to boost your productivity,
+            streamline workflows, and drive growth.
+          </div>
+
+          <a href="javascript:void(0);" id="toggleBtn"
+            class="btn btn-link p-0 fs-6" style="cursor:pointer;">
+            View More
+          </a>
+
+        </div>
+
+        <!-- Desktop and larger screens: full text always visible -->
+        <p class="d-none d-sm-block ">
+          <strong>
+            Our solutions are designed with your needs in mind — cost-effective,
+            scalable, and backed by expert support to ensure your technology
+            keeps pace with your ambitions.
+            Experience unparalleled service crafted to boost your productivity,
+            streamline workflows, and drive growth.
+          </strong>
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- 🔹 Filter Buttons -->
+    <div class="mb-4 mt-3 text-center">
+      <button class="btn btn-outline-primary btn-sm me-2 my-1 filter-btn active"
+        data-filter="all">
+        <i class="bi bi-grid"></i> All
+      </button>
+      <button class="btn btn-outline-primary btn-sm me-2 my-1 filter-btn"
+        data-filter="service">
+        <i class="bi bi-tools"></i> Services
+      </button>
+      <button class="btn btn-outline-primary btn-sm me-2 my-1 filter-btn"
+        data-filter="hardware">
+        <i class="bi bi-cpu"></i> Hardware
+      </button>
+
+      <button class="btn btn-outline-primary btn-sm me-2 my-1 filter-btn"
+        data-filter="networking">
+        <i class="bi bi-diagram-3"></i> Networking
+      </button>
+
+      <button class="btn btn-outline-primary btn-sm filter-btn"
+        data-filter="software">
+        <i class="bi bi-code-slash"></i> Software
+      </button>
+    </div>
+  </div>
+
+  {% if user.is_superuser %}
+  <div class="text-end mb-3">
+    <a href="{% url 'product_create' %}" class="btn btn-danger" title="Admin Dashboard">
+      <i class="bi bi-plus"></i>Add Item
+    </a>
+  </div>
+{% endif %}
+
+  <!-- 🔹 Category Sections -->
+  <div id="product-grid">
+
+    <!-- Services -->
+
+    <div
+      class="row g-2 mt-1 category-section  bg-light bg-opacity-75 p-3 rounded-3" data-category="service">
+      <div class="col-12  ">
+        <h4 class="text-center mb-2"><i class="bi bi-tools text-dark "></i><span
+            class="p-2" style="color: #0d6efd;">Services</span></h4>
+      </div>
+      {% for product in products %}
+      {% if product.category == "service" %}
+      <div class="col-md-3 col-sm-6 product-card " data-category="service">
+        <div class="card shadow-sm h-100 border-0 ">
+          {% if product.product_image %}
+          <img src="{{ product.product_image.url }}"
+            class="card-img-top"
+            alt="{{ product.name }}"
+            style="height:150px; object-fit:contain;">
+          {% endif %}
+          <div class="card-body p-2 d-flex flex-column">
+            <h6 class="card-title mb-1 text-truncate">{{ product.name }}</h6>
+            <p class="card-text small text-muted mb-1">
+              {{product.description|truncatewords:8 }}</p>
+            <p class="fw-bold mb-2">₹{{ product.price }}</p>
+            {% if request.user.is_superuser %}
+            <div class="btn-group btn-group-sm mt-auto">
+              <a href="{% url 'product_detail' product.pk %}"
+                class="btn btn-outline-primary">View</a>
+              <a href="{% url 'product_update' product.pk %}"
+                class="btn btn-outline-secondary">Edit</a>
+              <a href="{% url 'product_delete' product.pk %}"
+                class="btn btn-outline-danger">Del</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p class="text-muted">No services available.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Hardware -->
+
+    <div
+      class="row g-2 mt-3 category-section bg-light bg-opacity-75 p-3 rounded-3"
+      data-category="hardware">
+      <div class="col-12  ">
+        <h4 class="text-center mb-2"><i class="bi bi-cpu"></i><span class="p-2"
+            style="color: #0d6efd;">Hardware</span></h4>
+      </div>
+
+      {% for product in products %}
+      {% if product.category == "hardware" %}
+      <div class="col-md-3 col-sm-6 product-card" data-category="hardware">
+        <div class="card shadow-sm h-100 border-0">
+          {% if product.product_image %}
+          <img src="{{ product.product_image.url }}"
+            class="card-img-top"
+            alt="{{ product.name }}"
+            style="height:150px; object-fit:contain;">
+          {% endif %}
+          <div class="card-body p-2 d-flex flex-column">
+            <h6 class="card-title mb-1 text-truncate">{{ product.name }}</h6>
+            <p class="card-text small text-muted mb-1">
+              {{product.description|truncatewords:8 }}</p>
+            <p class="fw-bold mb-2">₹{{ product.price }}</p>
+             {% if request.user.is_superuser %}
+            <div class="btn-group btn-group-sm mt-auto">
+              <a href="{% url 'product_detail' product.pk %}"
+                class="btn btn-outline-primary">View</a>
+              <a href="{% url 'product_update' product.pk %}"
+                class="btn btn-outline-secondary">Edit</a>
+              <a href="{% url 'product_delete' product.pk %}"
+                class="btn btn-outline-danger">Del</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p class="text-muted">No hardware available.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Networking -->
+
+    <div
+      class="row g-2 mt-3 category-section bg-light bg-opacity-75 p-3 rounded-3"
+      data-category="networking">
+      <div class="col-12  ">
+        <h4 class="text-center mb-2"><i class="bi bi-diagram-3"></i><span
+            class="p-2" style="color: #0d6efd;">Networking</span></h4>
+      </div>
+
+      {% for product in products %}
+      {% if product.category == "networking" %}
+      <div class="col-md-3 col-sm-6 product-card" data-category="networking">
+        <div class="card shadow-sm h-100 border-0">
+          {% if product.product_image %}
+          <img src="{{ product.product_image.url }}"
+            class="card-img-top"
+            alt="{{ product.name }}"
+            style="height:150px; object-fit:contain;">
+          {% endif %}
+          <div class="card-body p-2 d-flex flex-column">
+            <h6 class="card-title mb-1 text-truncate">{{ product.name }}</h6>
+            <p class="card-text small text-muted mb-1">
+              {{product.description|truncatewords:8 }}</p>
+            <p class="fw-bold mb-2">₹{{ product.price }}</p>
+
+             {% if request.user.is_superuser %}
+            <div class="btn-group btn-group-sm mt-auto">
+              <a href="{% url 'product_detail' product.pk %}"
+                class="btn btn-outline-primary">View</a>
+              <a href="{% url 'product_update' product.pk %}"
+                class="btn btn-outline-secondary">Edit</a>
+              <a href="{% url 'product_delete' product.pk %}"
+                class="btn btn-outline-danger">Del</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p class="text-muted">No networking products available.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Software -->
+
+    <div
+      class="row g-2 mt-3 category-section bg-light bg-opacity-75 p-3 rounded-3"
+      data-category="software">
+      <div class="col-12  ">
+        <h4 class="text-center mb-2"><i class="bi bi-code-slash"></i> <span
+            class="p-2" style="color: #0d6efd;">Software</span></h4>
+      </div>
+
+      {% for product in products %}
+      {% if product.category == "software" %}
+      <div class="col-md-3 col-sm-6 product-card" data-category="software">
+        <div class="card shadow-sm h-100 border-0">
+          {% if product.product_image %}
+          <img src="{{ product.product_image.url }}"
+            class="card-img-top"
+            alt="{{ product.name }}"
+            style="height:150px; object-fit:contain;">
+          {% endif %}
+          <div class="card-body p-2 d-flex flex-column">
+            <h6 class="card-title mb-1 text-truncate">{{ product.name }}</h6>
+            <p class="card-text small text-muted mb-1">
+             {{ product.description|truncatewords:8 }}</p>
+            <p class="fw-bold mb-2">₹{{ product.price }}</p>
+            {% if request.user.is_superuser %}
+            <div class="btn-group btn-group-sm mt-auto">
+              <a href="{% url 'product_detail' product.pk %}"
+                class="btn btn-outline-primary">View</a>
+              <a href="{% url 'product_update' product.pk %}"
+                class="btn btn-outline-secondary">Edit</a>
+              <a href="{% url 'product_delete' product.pk %}"
+                class="btn btn-outline-danger">Del</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p class="text-muted">No software available.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<!-- 🔹 Filtering Script -->
+<!-- 🔹 Filtering Script -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggleBtn');
+    const collapseText = document.getElementById('fullText');
+
+    toggleBtn.addEventListener('click', function() {
+      if (collapseText.classList.contains('d-none')) {
+        collapseText.classList.remove('d-none');
+        toggleBtn.textContent = 'View Less';
+      } else {
+        collapseText.classList.add('d-none');
+        toggleBtn.textContent = 'View More';
+      }
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  // Text toggle for "View More"/"View Less"
+  const toggleBtn = document.getElementById('toggleBtn');
+  const collapseText = document.getElementById('fullText');
+  if (toggleBtn && collapseText) {
+    toggleBtn.addEventListener('click', function() {
+      if (collapseText.classList.contains('d-none')) {
+        collapseText.classList.remove('d-none');
+        toggleBtn.textContent = 'View Less';
+      } else {
+        collapseText.classList.add('d-none');
+        toggleBtn.textContent = 'View More';
+      }
+    });
+  }
+
+  const buttons = document.querySelectorAll(".filter-btn[data-filter]");
+  const sections = document.querySelectorAll(".category-section");
+
+  // Function to update category sections visibility based on visible cards
+  function updateCategoryVisibility() {
+    sections.forEach(section => {
+      const cards = section.querySelectorAll(".product-card");
+      const visibleCards = Array.from(cards).filter(card => card.style.display !== "none");
+      if (visibleCards.length === 0) {
+        section.style.display = "none";
+      } else {
+        section.style.display = "flex";
+        section.style.flexWrap = "wrap";
+      }
+    });
+  }
+
+  // Function to update filter buttons visibility based on category content
+  function updateFilterButtonsVisibility() {
+    buttons.forEach(button => {
+      const filter = button.getAttribute("data-filter");
+      if (filter === "all") {
+        button.style.display = "inline-block";
+      } else {
+        const matchedSection = Array.from(sections).find(section => section.getAttribute("data-category") === filter);
+        if (matchedSection) {
+          const productCards = matchedSection.querySelectorAll(".product-card");
+          button.style.display = productCards.length > 0 ? "inline-block" : "none";
+        }
+      }
+    });
+  }
+
+  // Set initial filter buttons visibility
+  updateFilterButtonsVisibility();
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", function() {
+      const filter = this.getAttribute("data-filter");
+
+      // Toggle active button styling
+      buttons.forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+
+      if (filter === "all") {
+        // Show all cards and sections
+        sections.forEach(section => {
+          const cards = section.querySelectorAll(".product-card");
+          cards.forEach(card => (card.style.display = "block"));
+          section.style.display = "flex";
+          section.style.flexWrap = "wrap";
+        });
+      } else {
+        // Show only cards in selected category, hide others
+        sections.forEach(section => {
+          const category = section.getAttribute("data-category");
+          const cards = section.querySelectorAll(".product-card");
+          if (category === filter) {
+            cards.forEach(card => (card.style.display = "block"));
+          } else {
+            cards.forEach(card => (card.style.display = "none"));
+          }
+        });
+      }
+
+      // Hide empty categories after filtering
+      updateCategoryVisibility();
+    });
+  });
+
+  // Initial hide of empty categories on page load
+  updateCategoryVisibility();
+});
+
+
+</script>
+
+{% endblock %}

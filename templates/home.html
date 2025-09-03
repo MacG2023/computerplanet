@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Welcome to Computer Planet{% endblock %}
+{% block extra_head %}
+<style>
+  .card-title , .card h5, .carousel-item h5  ,.card-body p, .section-header
+  {
+    color: #0d6efd;
+    font-weight: bold;
+  }
+
+
+
+</style>
+
+
+{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+ <div style="background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+<div class="p-5 mb-4 rounded-3 shadow-sm text-center" style="background: url('{% static 'images/hero_background.png' %}') center center / cover no-repeat;">
+  <div class="container py-5 bg-light bg-opacity-75 rounded-3">
+    <h1 class="display-5 fw-bold text-primary d-flex flex-column flex-sm-row align-items-center justify-content-center">
+      <img src="{% static 'images/logos/logo.png' %}" alt="Computer Planet Logo"
+           class="mb-3 mb-sm-0"
+           style="height:60px; width:auto; max-width:100%;">
+      <span class="ms-sm-3">Welcome to Computer Planet</span>
+    </h1>
+    <p class="fs-5 fs-sm-5  mx-auto" style="font-family: 'Courier New', Courier, monospace; max-width: 600px; color: #0d6efd; ">
+    <strong>  Your one-stop solution for tech services, products, and customer support. </strong>
+    </p>
+    <a href="{% url 'tickets' %}" class="btn btn-primary btn-lg mt-3 px-5">Get Support</a>
+  </div>
+</div>
+
+<!-- Services Section -->
+<div class="container my-5">
+  <h2 class="text-center mb-4 section-header">
+    <i class="bi bi-gear-fill text-secondary me-2 "></i>
+    Our Services
+  </h2>
+  <div class="row g-4">
+    <!-- IT Support -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/service_it_support.png' %}" class="card-img-top" alt="IT Support">
+        <div class="card-body">
+          <h5 class="card-title">Dedicated Technical Support</h5>
+          <p class="card-text">Quick and reliable tech support to solve your IT issues and keep your business running.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Hardware -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/service_hardware.png' %}" class="card-img-top" alt="Hardware Sales">
+        <div class="card-body">
+          <h5 class="card-title">Hardware Maintenance</h5>
+          <p class="card-text">Comprehensive hardware maintenance to extend system lifespan and minimize downtime.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Software -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/service_software.png' %}" class="card-img-top" alt="Software Solutions">
+        <div class="card-body">
+          <h5 class="card-title">Proactive Software Updates</h5>
+          <p class="card-text">Licensed software and custom solutions to meet your business and personal needs.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Networking -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm">
+        <img src="{% static 'images/service_networking.png' %}" class="card-img-top" alt="Networking">
+        <div class="card-body">
+          <h5 class="card-title">Networking</h5>
+          <p class="card-text">End-to-end networking solutions from setup to maintenance, ensuring seamless connectivity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Why Choose Us -->
+<div class="container my-5">
+  <h2 class="text-center mb-4 section-header">
+    <i class="bi bi-lightning-fill text-warning me-2"></i>
+    Why Choose Us
+  </h2>
+  <div class="row g-4">
+
+    <div class="col-md-3">
+  <div class="card h-100 shadow-sm p-3">
+    <h5>
+      <i class="bi bi-lightning-fill me-2 text-warning"></i>
+      Priority Emergency Response
+    </h5>
+    <p>Rapid response service to critical IT issues, minimizing downtime and ensuring business continuity.</p>
+  </div>
+</div>
+
+
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm p-3">
+        <h5>
+          <i class="bi bi-cash-stack me-2 text-success"></i>
+          Cost Savings
+        </h5>
+        <p>Proactive maintenance prevents costly downtime and extends hardware lifespan.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm p-3">
+        <h5>
+          <i class="bi bi-speedometer2 me-2 text-primary"></i>
+          Enhanced Performance
+        </h5>
+        <p>Regular updates ensure your systems operate at peak performance and efficiency.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm p-3">
+        <h5>
+          <i class="bi bi-people-fill me-2 text-info"></i>
+          Reliable Support
+        </h5>
+        <p>Dedicated support team ensures fast issue resolution, minimizing disruptions.</p>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+<!-- Clients Carousel -->
+<!-- Clients Carousel -->
+<div class="container my-5">
+  <h2 class="text-center mb-4 section-header">
+    <i class="bi bi-people text-muted me-2"></i>
+    Our Clients
+  </h2>
+  <div id="clientCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner text-center">
+      <!-- Client 1 -->
+      <div class="carousel-item bg-light shadow-sm p-3 rounded-4 active">
+        <img src="{% static 'images/clients/indian_post.png' %}" class="d-block mx-auto rounded shadow-sm"
+          alt="Indian Post" style="width:200px; height:100px; object-fit:cover;">
+        <h5 class="mt-3">Indian Post, Cachar Division</h5>
+        <p class="text-muted">"Reliable partner for IT maintenance and support, ensuring smooth postal operations."</p>
+      </div>
+      <!-- Client 2 -->
+      <div class="carousel-item bg-light shadow-sm p-3  rounded-4 ">
+        <img src="{% static 'images/clients/agbb.png' %}" class="d-block mx-auto rounded shadow-sm"
+          alt="AGBB" style="width:200px; height:100px; object-fit:cover;">
+        <h5 class="mt-3">Assam Gramin Bikash Bank</h5>
+        <p class="text-muted">"Proactive IT solutions that help us serve our customers better."</p>
+      </div>
+      <!-- Client 3 -->
+      <div class="carousel-item bg-light shadow-sm p-3 rounded-4 ">
+        <img src="{% static 'images/clients/pnb.png' %}" class="d-block mx-auto rounded shadow-sm"
+          alt="PNB" style="width:200px; height:100px; object-fit:cover;">
+        <h5 class="mt-3">Punjab National Bank</h5>
+        <p class="text-muted">"Excellent networking and hardware support across our branches."</p>
+      </div>
+      <!-- Client 4 -->
+      <div class="carousel-item bg-light shadow-sm  p-3 rounded-4 ">
+        <img src="{% static 'images/clients/govt.png' %}" class="d-block mx-auto rounded shadow-sm"
+          alt="Govt Clients" style="width:200px; height:100px; object-fit:cover;">
+        <h5 class="mt-3">Govt. & Private Entities</h5>
+        <p class="text-muted">"Trusted IT service provider across Barak Valley."</p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#clientCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#clientCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!-- Certificates & Registrations Section -->
+<div class="container my-5 ">
+  <h2 class="text-center mb-4 section-header">
+    <i class="bi bi-award-fill text-warning me-2"></i>
+    Certificates & Registrations
+  </h2>
+  <div class="row g-4 justify-content-center">
+
+    <!-- GST Registration Certificate Card -->
+    <div class="col-md-4">
+      <div class="card border-primary shadow-sm h-100">
+        <div class="card-header bg-primary bg-gradient text-white d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-file-earmark-medical-fill fs-3 me-2"></i>
+            <span>GST Registration</span>
+          </div>
+          <img src="{% static 'images/logos/gst.png' %}" alt="GST Logo" style="height:40px;">
+        </div>
+        <div class="card-body text-center">
+          <img src="{% static 'images/certificates/gst_reg.png' %}" class="img-fluid rounded shadow mb-3" alt="GST Registration Certificate">
+          <p class="mb-1"><strong>GSTIN:</strong> 18ASTPR6755J1ZO</p>
+          <p class="text-muted small">Government Registered under GST, India</p>
+          <a href="{% static 'images/certificates/gst_reg.png' %}" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-eye-fill me-1"></i>View Certificate
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MSME/Udyam Registration Certificate Card -->
+    <div class="col-md-4">
+      <div class="card border-success shadow-sm h-100">
+        <div class="card-header bg-success bg-gradient text-white d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-building-check fs-3 me-2"></i>
+            <span>MSME/Udyam Registration</span>
+          </div>
+          <img src="{% static 'images/logos/msme.png' %}" alt="MSME Logo" style="height:40px;">
+        </div>
+        <div class="card-body text-center">
+          <img src="{% static 'images/certificates/udyam_reg.png' %}" class="img-fluid rounded shadow mb-3" alt="MSME Udyam Registration">
+          <p class="mb-1"><strong>Reg. No:</strong> UDYAM-AS-05-001941</p>
+          <p class="text-muted small">Ministry of MSME, Govt. of India</p>
+          <a href="{% static 'images/certificates/udyam_reg.png' %}" target="_blank" class="btn btn-outline-success btn-sm">
+            <i class="bi bi-eye-fill me-1"></i>View Certificate
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Appreciation Certificate Card -->
+    <div class="col-md-4">
+      <div class="card border-info shadow-sm h-100">
+        <div class="card-header bg-info bg-gradient text-white d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-person-badge-fill fs-3 me-2"></i>
+            <span>Client Certificate</span>
+          </div>
+          <img src="{% static 'images/logos/pnb.png' %}" alt="PNB Logo" style="height:40px;">
+        </div>
+        <div class="card-body text-center">
+          <img src="{% static 'images/certificates/pnb_cert.png' %}" class="img-fluid rounded shadow mb-3" alt="Client Certificate">
+          <p class="mb-1"><strong>Punjab National Bank</strong></p>
+          <p class="text-muted small">Certificate of Recognition</p>
+          <a href="{% static 'images/certificates/pnb_cert.png' %}" target="_blank" class="btn btn-outline-info btn-sm">
+            <i class="bi bi-eye-fill me-1"></i>View Certificate
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Call to Action -->
+<div class="bg-primary text-white text-center p-5 mt-5 rounded-3 shadow-sm">
+  <h2 class="mb-3 ">Need Help?</h2>
+  <p class="fs-5">Log a support ticket and our team will assist you promptly.</p>
+  <a href="{% url 'tickets' %}" class="btn btn-light btn-lg mt-2">Log a Ticket</a>
+  <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg ms-3 mt-2">Learn More About Us</a>
+</div>
+</div>
+
+
+{% endblock %}
